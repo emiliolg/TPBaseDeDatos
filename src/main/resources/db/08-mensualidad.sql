@@ -10,7 +10,8 @@ create table mensualidades
     mes               int         not null,
     anio              int         not null,
     monto             numeric     not null,
-    fecha_pago        date
+    fecha_pago        date,
+    primary key (dni, mes, anio)
 )
 comment 'Tabla de Mensualidades';
 
@@ -40,7 +41,7 @@ end $$
 create procedure deuda_por_socio(dniSocio int)
     comment 'Total de deuda para un socio'
 begin
-    select sum(monto) from mensualidades where fecha_pago is null and dni = dniSocio
+    select sum(monto) from mensualidades where fecha_pago is null and dni = dniSocio;
 end $$
 
 create procedure socios_con_deuda()

@@ -36,6 +36,7 @@ begin
    end if;
 end $$
 
+
 create procedure mod_empleado (d int, n varchar(30), a varchar(30), f date, t varchar(10))
 comment 'Modifica los datos de un Empleado'
 begin

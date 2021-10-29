@@ -24,7 +24,7 @@ create procedure alta_ejemplar(idLibro bigint)
     comment 'Da de Alta un Ejemplar de un libro, retorna el id del nuevo ejemplar'
 begin
     insert into ejemplares(id_libro, fecha_alta) values (idLibro, curdate());
-    select last_insert_id();
+    select last_insert_id() as Identificador;
 end $$
 
 create procedure reservar_libro(idLibro bigint, dniSocio int)

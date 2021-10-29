@@ -13,14 +13,13 @@ create procedure retornar_libro(idLibro bigint, dniSocio int)
 begin
     # Verificar si lo tenia reservado
     if not exists(select * from ejemplares where id_libro = idLibro and dni_socio = dniSocio) then
-        signal sqlstate '45005' set message_text = 'Codigo de libro o dni incorrecto!';
-        # Verificar que existe el socio y esta activo
+        signal sqlstate '45005' set message_text = 'Código de libro o dni incorrecto!';
     else
         update ejemplares
         set fecha_reserva = null,
             fecha_retorno = null,
             dni_socio = null
-        where id_libro = idLibro and dni_socio = dniSocio
+        where id_libro = idLibro and dni_socio = dniSocio;
     end if;
 end $$
 

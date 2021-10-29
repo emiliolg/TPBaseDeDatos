@@ -14,13 +14,16 @@ begin
     # Verificar si existe ese libro
     if not exists(select * from libros where id = idLibro) then
         signal sqlstate '45001' set message_text = 'Libro inexistente!';
-        # Verificar que existe el socio y esta activo
+
+    # Verificar que existe el socio y esta activo
     elseif not exists(select * from socios where dni = dniSocio and activo = 1) then
         signal sqlstate '45002' set message_text = 'Socio inexistente o no activo!';
-        # Verificar si el socio ya tiene reservado el mismo libro
+
+    # Verificar si el socio ya tiene reservado el mismo libro
     elseif exists(select * from ejemplares where id_libro = idLibro and dni_socio = dniSocio) then
         signal sqlstate '45003' set message_text = 'El socio ya reservo ese libro!';
-        # Verificar disponibilidad
+
+    # Verificar disponibilidad
     elseif not exists(select * from ejemplares where id_libro = idLibro and dni_socio is null) then
         signal sqlstate '45004' set message_text = 'No hay Ejemplares disponibles!';
     else

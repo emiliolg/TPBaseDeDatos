@@ -47,13 +47,12 @@ end $$
 
 create procedure listar_libros_por_tema(temaLibro varchar(20))
 begin
-    select *
+    select libros.*
     from libros
-    where id in (
-        select id_libro
-        from libros_por_tema
-        where id_tema in (select id from temas where tema = temaLibro)
-    );
+    inner join libros_por_tema lpt on libros.id = lpt.id_libro
+    inner join temas t on lpt.id_tema = t.id
+    where t.tema = temaLibro;
+
 end $$
 
 delimiter ;
